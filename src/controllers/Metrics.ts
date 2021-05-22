@@ -4,14 +4,14 @@ import Metric, { IMetric } from "../models/Metric";
 
 export async function createMetric(req: Request, res: Response) {
     try {
-        const { url, ttfb, fcp, domLoad, windowLoadEvents, timestamp } = req.body
-        const metric = new Metric({ url, ttfb, fcp, domLoad, windowLoadEvents, timestamp: moment(timestamp).toISOString() })
+        const { url, ttfb, fcp, domLoad, windowLoadEvents, resources, timestamp } = req.body
+        const metric = new Metric({ url, ttfb, fcp, domLoad, windowLoadEvents, resources, timestamp: moment(timestamp).toISOString() })
         await metric.save().then((result: any) => {
             return res.status(201).send({ id: result._id })
         }).catch(err => {
             return handleError(res, err)
         })
-        return handleError(res, { code: 500, message: "Unknown Error Occured." })
+        return;
 
     } catch (err) {
         return handleError(res, err)
@@ -36,7 +36,7 @@ export async function getMeasures(req: Request, res: Response) {
         });
         if (metrics instanceof Array) {
             const data = metrics.map((item: any) => {
-                const { _id, url, ttfb, fcp, domLoad, windowLoadEvents, timestamp } = item
+                const { _id, url, ttfb, fcp, domLoad, windowLoadEvents, resources, timestamp } = item
                 return {
                     id: _id,
                     url,
@@ -44,13 +44,13 @@ export async function getMeasures(req: Request, res: Response) {
                     fcp,
                     domLoad,
                     windowLoadEvents,
+                    resources,
                     timestamp
                 }
             });
             return res.status(200).send({ data });
         }
-        throw new Error("Unknown error occured.")
-
+        return;
     } catch (err) {
         return handleError(res, err)
     }

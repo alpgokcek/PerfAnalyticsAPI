@@ -26,7 +26,7 @@ app.use(express.json());
  * @access  Public
  */
 app.get("/", (_req, res) => {
-  res.send("API Running");
+  res.send("API is successfully running!");
 });
 
 metricsRoutes(app);

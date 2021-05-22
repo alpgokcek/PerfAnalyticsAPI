@@ -19,22 +19,48 @@ export interface IMetric extends Document {
   timestamp: string;
 }
 
+const resourceSchema: Schema = new Schema({
+  type: {
+    type: String,
+    required: true
+  },
+  source: {
+    type: String,
+    required: true
+  },
+  responseTime: {
+    type: Number,
+    required: true
+  },
+  executionTime: {
+    type: Number,
+    required: true
+  },
+  fetchTime: {
+    type: Number,
+    required: true
+  }
+});
+
 const metricSchema: Schema = new Schema({
   url: {
     type: String,
     required: true
   },
   ttfb: {
-    type: String
+    type: Number
   },
   fcp: {
-    type: String
+    type: Number
   },
   domLoad: {
-    type: String
+    type: Number
   },
   windowLoadEvents: {
-    type: String
+    type: Number
+  },
+  resources: {
+    type: [resourceSchema]
   },
   timestamp: {
     type: String,
@@ -54,9 +80,6 @@ metricSchema.query.byTimeInterval = function(startDate, endDate): Query<any, Doc
 });
 };
 
-
-
-//const Metric: Model<IMetric> = model("Metric", metricSchema, IMetricQueryHelpers);
-const Metric = model<IMetric, Model<IMetric, IMetricQueryHelpers>>('Metric', metricSchema);
+const Metric = model<IMetric, Model<IMetric, IMetricQueryHelpers>>('Metric', metricSchema, 'metrics');
 
 export default Metric;
