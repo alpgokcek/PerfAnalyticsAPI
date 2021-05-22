@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "6f407a65-f7f8-4ccc-bf5a-471e180e8fd2",
+		"name": "PerfAnalytics",
+		"description": "PerfAnalytics.API is a restful API which saves data, posted from PerfAnalytics.JS and returns time specific filtered data.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Metric",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"url\": \"https://google.com\",\n    \"ttfb\": \"700\",\n    \"fcp\": \"500\",\n    \"domLoad\": \"200\",\n    \"windowLoadEvents\": \"300\",\n    \"timestamp\": \"2021-05-22T13:33:10.292Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_base_url}}/metrics",
+					"host": [
+						"{{api_base_url}}"
+					],
+					"path": [
+						"metrics"
+					]
+				},
+				"description": "Create Metric request"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Metrics from last 30 minutes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_base_url}}/measures",
+					"host": [
+						"{{api_base_url}}"
+					],
+					"path": [
+						"measures"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Metrics between a time range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_base_url}}/measures?startDate=2021-05-10T13:33:10.292Z&endDate=2021-05-22T13:33:10.292Z",
+					"host": [
+						"{{api_base_url}}"
+					],
+					"path": [
+						"measures"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2021-05-10T13:33:10.292Z"
+						},
+						{
+							"key": "endDate",
+							"value": "2021-05-22T13:33:10.292Z"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_base_url",
+			"value": "https://obscure-tor-84598.herokuapp.com/"
+		}
+	]
+}

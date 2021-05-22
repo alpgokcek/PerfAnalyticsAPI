@@ -1,0 +1,39 @@
+{
+  "name": "perf-analytics-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "watch-tsc": "tsc -w",
+    "deploy": "node dist/src/server.js",
+    "watch-deploy": "nodemon dist/src/server.js",
+    "start": "nodemon server.ts",
+    "start-": "npm run deploy",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/joi": "^17.2.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "http-status-codes": "^2.1.4",
+    "joi": "^17.4.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.10",
+    "request": "^2.88.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/mongoose": "^5.10.5",
+    "@types/node": "^15.6.0",
+    "nodemon": "^2.0.7"
+  }
+}
