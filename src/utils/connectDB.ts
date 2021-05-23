@@ -1,8 +1,11 @@
 import { ConnectionOptions, connect } from "mongoose";
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
-const connectDB = async (dbURI: string) => {
+const mongod = new MongoMemoryServer();
+
+const connectDB = async (dbURI: string, isTestDB=false) => {
   try {
-    const mongoURI: string = dbURI ;
+    const mongoURI: string = isTestDB ? await mongod.getUri() : dbURI;
     const options: ConnectionOptions = {
       useNewUrlParser: true,
       useCreateIndex: true,

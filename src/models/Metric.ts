@@ -77,7 +77,7 @@ metricSchema.query.byTimeInterval = function(startDate, endDate): Query<any, Doc
         "$gte": startDate,
         "$lte": endDate,
     }
-});
+}).sort('timestamp');
 };
 
 const Metric = model<IMetric, Model<IMetric, IMetricQueryHelpers>>('Metric', metricSchema, 'metrics');

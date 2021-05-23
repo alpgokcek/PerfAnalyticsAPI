@@ -1,0 +1,139 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "PerfAnalytics API",
+        "description": "PerfAnalytics.API is a restful API which saves data, posted from PerfAnalytics.JS and returns time specific filtered data.",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "api-perf-analytics.herokuapp.com",
+    "basePath": "/",
+    "tags": [{
+        "name": "Metrics",
+        "description": "API for processing performance metrics"
+    }],
+    "schemes": ["https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/metrics": {
+            "get": {
+                "tags": ["Metrics"],
+                "summary": "Get Metrics from last 30 minutes or within a time range.",
+                "parameters": [{
+                        "in": "query",
+                        "name": "startDate",
+                        "description": "Start date of the time range. Must be in ISO8601 format. E.g. 2021-05-10T00:00:00.000Z",
+                        "schema": {
+                            "type": "string",
+                            "default": "2021-05-10T00:00:00.002Z"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "endDate",
+                        "description": "End date of the time range. Must be in ISO8601 format. E.g. 2021-09-10T00:00:00.000Z",
+                        "schema": {
+                            "type": "string",
+                            "default": "2021-09-10T00:00:00.002Z"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Metrics"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Metrics"],
+                "summary": "Create new Metric",
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Metric object that needs to be added to the database",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Metric"
+                    }
+                }],
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "uniqueItems": true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Metric": {
+            "required": ["url", "id", "timestamp"],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "url": {
+                    "type": "number"
+                },
+                "ttfb": {
+                    "type": "number"
+                },
+                "fcp": {
+                    "type": "number"
+                },
+                "domLoad": {
+                    "type": "number"
+                },
+                "windowLoadEvents": {
+                    "type": "number"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "source": {
+                                "type": "string"
+                            },
+                            "responseTime": {
+                                "type": "number"
+                            },
+                            "executionTime": {
+                                "type": "number"
+                            },
+                            "fetchTime": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "Metrics": {
+            "type": "array",
+            "$ref": "#/definitions/Metric"
+        }
+    }
+}

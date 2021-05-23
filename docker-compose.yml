@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  perf-analytics-api:
+    container_name: perf-analytics-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/api"
+      - "/api/node_modules"
+    ports:
+      - 8080:5000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=8080

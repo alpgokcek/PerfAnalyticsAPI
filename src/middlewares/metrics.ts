@@ -13,5 +13,5 @@ export function createMetricSchema(req: Request, res: Response, next: Function) 
         resources: Joi.array(),
         timestamp: Joi.string().isoDate().required()
     })
-    validateRequest(req, next, schema)
+    validateRequest(req, res, next, schema)
 }

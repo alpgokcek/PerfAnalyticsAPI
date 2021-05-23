@@ -16,5 +16,5 @@
     }
   },
   "compileOnSave": true,
-  "include": ["src/**/*", "server.ts"]
+  "include": ["src/**/*", "server.ts", "src/swagger/swagger.json"]
 }

@@ -1,0 +1,23 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    - duration: 1
+      arrivalRate: 200
+  environments:
+    production:
+      target: "https://api-perf-analytics.herokuapp.com"
+    development:
+      target: "http://localhost:5000"
+scenarios:
+  - flow:
+      - get:
+          url: "/metrics"
+      - post:
+          url: "/metrics"
+          json:
+            url: "{{url}}"
+            ttfb: "{{ttfb}}"
+            fcp: "{{fcp}}"
+            domLoad: "{{domLoad}}"
+            windowLoadEvents: "{{windowLoadEvents}}"
+            timestamp: "{{timestamp}}"

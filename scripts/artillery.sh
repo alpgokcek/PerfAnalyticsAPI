@@ -1,0 +1,1 @@
+$(npm bin)/artillery run --variables '{"url": "https://google.com", "ttfb": "500", "fcp": "500", "domLoad": "500", "windowLoadEvents": "500", "timestamp": "2021-05-25T00:00:00.000Z"}' --environment $1 --output load-testing-report.json tests/artillery.yaml

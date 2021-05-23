@@ -25,8 +25,9 @@ export async function getMeasures(req: Request, res: Response) {
             startDate = req.query.startDate as string
             endDate = req.query.endDate as string
         } else if(!req.query.startDate && !req.query.endDate){
-            startDate = moment().subtract(30, 'minutes').toISOString()
-            endDate = moment().toISOString()
+            const now = new Date()
+            startDate = moment(now).subtract(30, 'minutes').toISOString()
+            endDate = moment(now).toISOString()
         } else {
             return handleError(res, {code: 400, message: "Please provide a proper time range."})
         }

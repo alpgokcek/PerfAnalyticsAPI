@@ -5,13 +5,14 @@ import dotenv from 'dotenv';
 import connectDB from "./src/utils/connectDB";
 import { CORS_CONFIG } from "./src/config";
 import metricsRoutes from "./src/routes/api/metrics";
+import swaggerUI from "swagger-ui-express";
 
 dotenv.config()
 
-const app = express();
+export const app = express();
 
 // Connect to MongoDB
-connectDB((process.env.DB_URI as string));
+connectDB((process.env.DB_URI as string), process.env.NODE_ENV === "testing");
 
 const PORT = process.env.PORT || 5000
 
@@ -29,10 +30,10 @@ app.get("/", (_req, res) => {
   res.send("API is successfully running!");
 });
 
+app.use('/swagger', swaggerUI.serve, swaggerUI.setup(require('./src/swagger/swagger.json')));
+
 metricsRoutes(app);
 
-const server = app.listen(PORT, () =>
+app.listen(PORT, () =>
   console.log(`Server started on port ${PORT}`)
 );
-
-export default server;
