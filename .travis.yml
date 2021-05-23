@@ -3,7 +3,6 @@ node_js:
 - lts/*
 script:
 - yarn test
-- npm run test
 branches:
   except:
   - legacy
