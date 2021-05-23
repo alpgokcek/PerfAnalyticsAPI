@@ -9,7 +9,7 @@
         "watch-deploy": "nodemon dist/server.js",
         "start": "node dist/server.js",
         "dev": "nodemon server.ts",
-        "test": "jest --runInBand --detectOpenHandles",
+        "test": "jest --forceExit",
         "watch-test": "jest --watch --runInBand --detectOpenHandles",
         "artillery-local": "./scripts/artillery.sh development",
         "artillery-prod": "./scripts/artillery.sh production",
