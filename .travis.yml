@@ -8,6 +8,8 @@ branches:
   - legacy
   only:
   - main
+services: 
+  - mongodb
 deploy:
   provider: heroku
   app: api-perf-analytics
